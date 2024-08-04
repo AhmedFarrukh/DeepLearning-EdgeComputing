@@ -297,6 +297,13 @@ Then open the `reserve.ipynb` notebook inside the `DeepLearning-EdgeComputing` d
 
 
 ### Measure inference time on a Raspberry Pi (through Chameleon)
+Follow along the `raspberry_pi_inference.ipynb` notebook. 
+To get started, open the Jupyter Interface in Chameleon, initiate a terminal and run the following in the terminal:
+```
+cd ~/work
+git clone https://github.com/AhmedFarrukh/DeepLearning-EdgeComputing.git
+```
+Then open the `raspberry_pi_inference.ipynb` notebook inside the `DeepLearning-EdgeComputing` directory.
 
 ## Analyze results
 
