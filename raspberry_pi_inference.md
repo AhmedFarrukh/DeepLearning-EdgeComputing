@@ -5,7 +5,7 @@
 :::{.cell}
 The effect of quantization on the inference time of a model is dependent on the hardware environment, amongst other factors. Since quantization can be used to prepare deep learning models for deployment on edge devices, a comparison of the inference time of a model before and after quantization can be useful.
 
-In this notebook, we measure the inference times on a Raspberry Pi 4 with te objective of finding out the effectiveness of quantization in reducing inference time one edge devices.
+In this notebook, we measure the inference times on a Raspberry Pi 4 with the objective of finding out the effectiveness of quantization in reducing inference time on edge devices.
 :::
 
 :::{.cell}
@@ -194,7 +194,7 @@ print(container.execute(my_container.uuid, 'ls -R /root/code'))['output']
 Before we run the experiment, we need to download the models, as well as the TFlite benchmark. 
 :::
 :::{.cell}
-We first install the `wget` and `gdown`. `wget` is a utility used to download files from the internet which we can use to downlaod the TFlite benchmark, and `gdown` is a tool to download files specifically from Google Drive, where the models are stored.
+We first install `wget` and `gdown`. `wget` is a utility used to download files from the internet which we will use to downlaod the TFlite benchmark, and `gdown` is a tool to download files specifically from Google Drive, where the models are stored.
 :::
 
 :::{.cell .code}
