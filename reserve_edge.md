@@ -346,6 +346,6 @@ DELETE = False #Default value is False to prevent any accidental deletes. Change
 if DELETE:
 
     # delete lease
-    chi.lease.delete_lease(lease["id"])
+    chi.lease.delete_lease(l["id"])
 ```
 :::
