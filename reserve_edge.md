@@ -239,7 +239,7 @@ Next, let's install the python packages and libraries needed to set up the Jupyt
 
 :::{.cell .code}
 ```python
-container.execute(my_container.uuid, 'pip install jupyter-core jupyter-client jupyter -U --force-reinstall')
+container.execute(my_container.uuid, 'pip install jupyter-core jupyter-client jupyter -U --force-reinstall --allow-root')
 ```
 :::
 
@@ -277,7 +277,7 @@ Run the following cell:
 
 :::{.cell .code}
 ```python
-print('ssh -L 127.0.0.1:8888:127.0.0.1:8888 cc@' + public_ip)
+print('ssh -L 127.0.0.1:8888:127.0.0.1:8888 root@' + public_ip)
 ```
 :::
 then paste its output into a *local* terminal on your own device, to set up a tunnel to the Jupyter server. If your Chameleon key is not in the default location, you should also specify the path to your key as an argument, using `-i`. Leave this SSH session open.
