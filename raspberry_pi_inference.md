@@ -405,7 +405,7 @@ n = 10 #the number of times the benchmark is called for each model
 for modelName in rows:
   print(modelName)
   modelResults = defaultdict(list)
-  outputOriginal = print(container.execute(my_container.uuid, 'cat ' + modelName + '.txt'))['output']
+  outputOriginal = print(container.execute(my_container.uuid, 'cat ./results/' + modelName + '.txt'))['output']
   output = parse_benchmark_output(outputOriginal, modelResults)
 
   for metric in metrics:
