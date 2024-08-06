@@ -296,12 +296,11 @@ In the output of the cell above, look for a URL in this format:
 http://localhost:8888/?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-Copy this URL and open it in a browser. Then, you can run the sequence of notebooks that you'll see there, in order.
+Copy this URL and open it in a browser. Then, you can run the notebooks that you see there.
+:::
 
-If you need to stop and re-start your Jupyter server,
-
-- Use Kernel > Interrupt Kernel *twice* to stop the cell above
-- Then run the following cell to kill whatever may be left running in the background.
+:::{.cell}
+Run the next cell to stop your Jupyter server.
 :::
 
 :::{.cell .code}
@@ -336,7 +335,7 @@ chi.neutron().delete_floatingip(ip_details["id"])
 ```
 :::
 :::{.cell}
-Run the following cell to delete the lease as well.
+Finally, run the following cell to delete the lease as well.
 :::
 
 :::{.cell .code}
