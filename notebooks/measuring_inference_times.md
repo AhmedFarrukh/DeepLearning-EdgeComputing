@@ -3,9 +3,7 @@
 :::
 
 :::{.cell}
-In this notebook, we measure the inference times and memory footprint of the 7 popular Convolutional Neural Network (CNN) models and their quantized versions.
-
-The CNN models are: MobileNet, InceptionV3, Resnet50, ResNet101, ResNet152, VGG16, VGG19.
+In this notebook, we measure the inference times and memory footprint of 7 popular Convolutional Neural Network (CNN) models and their quantized versions. The CNN models are: MobileNet, InceptionV3, Resnet50, ResNet101, ResNet152, VGG16, VGG19.
 
 The quantized models were created by applying [Post-training Dynamic Range Quantization](https://www.tensorflow.org/lite/performance/post_training_quantization), which converts model weights from floating point numbers to 8-bit fixed width numbers.
 
@@ -21,6 +19,19 @@ The benchmarking of models is achieved by using the official [TFlite benchmark](
 The benchmark generates a series of random inputs, runs the models and aggregates the results to report the aforementioned metrics.
 :::
 
+:::{.cell}
+Before we begin, let's check the specifications of our hardware environment. The `lscpu` utility in Linux can be used to learn more about the CPU architecture. Amongst details to notice are the BogoMIPS value and clock speed which are both measurements of CPU speed; BogoMIPS ("*Bog*us" *M*illions of *I*nstructions per *S*econd) is calculated by the Linux kernel whereas clock speed is reported by the hardware manufacturer. Also pay attention to the flags, and see if there are any special deep learning optimizations, such as the AVX-512 VNNI isntruction set which accelerates convolutional neural networks.
+:::
+:::{.cell .code}
+```python
+!lscpu
+```
+:::
+
+:::{.cell}
+Now let's define the CNN models we will be using.
+:::
+
 :::{.cell .code}
 ```python
 modelNames = ["MobileNet", "InceptionV3", "ResNet50", "ResNet101", "ResNet152", "VGG16", "VGG19"]
@@ -28,17 +39,18 @@ modelNames = ["MobileNet", "InceptionV3", "ResNet50", "ResNet101", "ResNet152", 
 :::
 
 :::{.cell}
-We can download the models from the Google Drive using `gdown`. If you want to download your own set of models, you can modify the google drive link below. In this case, we download the models to the  `./tflite_models` directory.
+We can download the models from the Google Drive using `gdown`. If you want to download your own set of models, you can modify the google drive link below. In this case, the `tflite_models` folder is downloaded from Google Drive and we will be able to access the models in the `./tflite_models` directory. 
 :::
 
 :::{.cell .code}
 ```python
-!gdown --folder https://drive.google.com/drive/folders/1OcJ9ceYg6ZWFJ4QMR0zznsw0KVeHPa4h -O ./tflite_models
+import gdown
+gdown.download_folder('https://drive.google.com/drive/folders/1OcJ9ceYg6ZWFJ4QMR0zznsw0KVeHPa4h')
 ```
 :::
 
 :::{.cell}
-You can verify that the models were correctly loaded by listing the files in the `./tflite_models directory`. Note that there should be two tflite files for each model: an original and a quantized version. The size of the quantized models should be significantly smaller than the size of their corresponding original model.
+You can verify that the models were correctly loaded by listing the files in the `./tflite_models` directory. Note that there should be two `.tflite` files for each model: an original and a quantized version. The size of the quantized models should be about four times smaller than the size of the corresponding original model.
 :::
 
 :::{.cell .code}
@@ -86,6 +98,8 @@ metrics = ["Init Time (ms)", "Init Inference (ms)", "First Inference (ms)", "War
 
 :::{.cell}
 Since the result of the benchmark is reported as text on the console, we can define a parsing function to extract the data. The parsing function takes the output of the benchmark as an input and adds the results to a dictionary of metrics.
+
+The function employs regular expressions to extract key performance metrics from the output logs. It defines specific patterns and attempts to match these against the output logs. When a match is identified, the corresponding metrics are stored in a dictionary provided to the function. The metrics, as defined earlier, serve as the keys in this dictionary. Each key is associated with an array that contains the values reported for that metric, allowing for organized and accessible data retrieval for further analysis.
 :::
 
 
@@ -146,7 +160,7 @@ def parse_benchmark_output(output, results):
 :::
 
 :::{.cell}
-Next, we can define a Pandas Dataframe to store our results. Since we will be repeatedly running the benchmark to estimate the standard deviation of results as well, for each metric, we will define two columns - one for the mean and the other for the standard deviation.
+Next, we can define a Pandas Dataframe to store our results. Since we will be repeatedly running the benchmark to estimate the standard deviation of results as well, for each metric we will define two columns - one for the mean and the other for the standard deviation.
 :::
 
 :::{.cell .code}
@@ -211,17 +225,27 @@ print(finalResult)
 :::
 
 :::{.cell}
-Let's create a directory to store the plots from our data:
+Let's create a directory to store the results from our experiment.
 :::
 
 :::{.cell .code}
 ```python
-!mkdir ./plots
+!mkdir ./results
 ```
 :::
 
 :::{.cell}
-Finally, we can generate plots of the results.
+Let's convert the `finalResult` dataframe to a csv file and store it in the `./results` directory, allowing us to download that data for later use.
+:::
+
+:::{.cell .code}
+```python
+finalResult.to_csv("./results/finalResult.csv")
+```
+:::
+
+:::{.cell}
+Finally, we can generate plots of the results. We will display the bars for the original and quantized versions of each model side-by-side to facilitate easy comparison. Error bars, representing +/- one standard deviation, will also be included to provide an estimate of the variation.
 :::
 
 
@@ -262,9 +286,15 @@ for metric in metrics:
     plt.tight_layout()
 
     # Save the plot as an image
-    plt.savefig("./plots" + metric + "_bar_chart.png")
+    plt.savefig("./results/" + metric + ".png")
 
     # Show the plot
     plt.show()
 ```
+:::
+
+:::{.cell}
+As you look through the plots, pay particular attention to the Average Inference Time plot, and note if the quantization led to a decrease in inference time, and if so, by how much.
+
+It is also interesting to note that sometimes even if the average inference time is greater for the quantized models, quantization might reduce other sources of latency, such as initialization time.
 :::
