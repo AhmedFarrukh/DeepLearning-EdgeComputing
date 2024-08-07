@@ -182,14 +182,23 @@ container.execute(my_container.uuid, 'apt -y install openssh-server')
 :::{.cell}
 There is one more necessary step before we can access the container over
 SSH - we need to make sure our key is installed on the container. Here,
-we will upload the key from the Jupyter environment, and make sure it is
+we will upload the key from your local device, and make sure it is
 configured with the appropriate file permissions:
 :::
 :::{.cell .code}
 ```python
 !mkdir -p tmp_keys
-!cp /work/.ssh/id_rsa.pub tmp_keys/authorized_keys
+!touch tmp_keys/authorized_keys
 ```
+:::
+:::{.cell}
+In the `tmp_keys/authorized_keys` textfile (that you should be able to see in the file directory interface on the left), place your RSA public key. If you followed the 'Hello-Chameleon' tutorial, you can find your RSA public key by running `cat ~/.ssh/id_rsa_chameleon.pub` on your *local* terminal; then paste the output in the `tmp_keys/authorized_keys` file.
+:::
+:::{.cell}
+Let's make sure that your RSA public key can be found in `tmp_keys/authorized_keys`. In output of the follow cell, you should be able to see text starting with 'ssh-rsa ...'
+:::
+:::{.cell}
+Next, let's upload this key to the container and set the appropriate permissions.
 :::
 :::{.cell .code}
 ```python
