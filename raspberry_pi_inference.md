@@ -184,7 +184,7 @@ Finally, we can verify that the files were successfully transferred. The followi
 
 :::{.cell .code}
 ```python
-print(container.execute(my_container.uuid, 'ls -R /root/code'))['output']
+print(container.execute(my_container.uuid, 'ls -R /root/code')['output'])
 ```
 :::
 :::{.cell}
@@ -227,7 +227,7 @@ The following command should verify that the benchmark was correctly downloaded.
 
 :::{.cell .code}
 ```python
-print(container.execute(my_container.uuid, 'ls /root/benchmark'))['output']
+print(container.execute(my_container.uuid, 'ls /root/benchmark')['output'])
 ```
 :::
 
@@ -257,7 +257,7 @@ The following command should verify that the models were correctly downloaded. I
 
 :::{.cell .code}
 ```python
-print(container.execute(my_container.uuid, 'ls -lR /root/tflite_models'))['output']
+print(container.execute(my_container.uuid, 'ls -lR /root/tflite_models')['output'])
 ```
 :::
 :::{.cell}
@@ -284,7 +284,7 @@ Before we plot the results, let's make sure that the python code has finished ru
 
 :::{.cell .code}
 ```python
-print(container.execute(my_container.uuid, 'ls /root/results'))['output']
+print(container.execute(my_container.uuid, 'ls /root/results')['output'])
 ```
 :::
 
@@ -294,7 +294,7 @@ We can have a look at one of the files to see what the output of the benchmark l
 
 :::{.cell .code}
 ```python
-print(container.execute(my_container.uuid, 'cat MobileNet.txt'))['output']
+print(container.execute(my_container.uuid, 'cat /root/results/MobileNet.txt')['output'])
 ```
 :::
 :::{.cell}
@@ -405,7 +405,7 @@ n = 10 #the number of times the benchmark is called for each model
 for modelName in rows:
   print(modelName)
   modelResults = defaultdict(list)
-  outputOriginal = print(container.execute(my_container.uuid, 'cat ./results/' + modelName + '.txt'))['output']
+  outputOriginal = print(container.execute(my_container.uuid, 'cat /root/results/' + modelName + '.txt')['output'])
   output = parse_benchmark_output(outputOriginal, modelResults)
 
   for metric in metrics:
