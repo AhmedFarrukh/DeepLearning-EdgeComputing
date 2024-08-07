@@ -288,7 +288,7 @@ Click the button below to open the measuring_inference_times.ipynb notebook on G
 </a>
 
 ### Measure inference time on a CPU (through Chameleon)
-First, you'll run the `reserve.ipynb` notebook to reserve a resource on Chameleon, configure it with the software needed to run this experiment and set up a Jupyter notebook server. At the end of this notebook, you'll set up an SSH tunnel between your local device and the Jupyter notebook server that you just created on your Chameleon resource. Then, you'll open the notebook server in your local browser and run the sequence of notebooks you see there.
+First, you'll run the `reserve.ipynb` notebook to reserve a resource on Chameleon, configure it with the software needed to run this experiment and set up a Jupyter notebook server. At the end of this notebook, you'll set up an SSH tunnel between your local device and the Jupyter notebook server that you just created on your Chameleon resource. Then, you'll open the notebook server in your local browser and run the `measuring_inference_times.ipynb` notebook you see there.
 
 To get started, open the Jupyter Interface in Chameleon, initiate a terminal and run the following in the terminal:
 ```
@@ -299,7 +299,7 @@ Then open the `reserve.ipynb` notebook inside the `DeepLearning-EdgeComputing` d
 
 
 ### Measure inference time on a Raspberry Pi (through Chameleon)
-First, you'll run the `reserve_edge.ipynb` notebook to reserve a Raspberry Pi 4 device on Chameleon, initiate a container and configure it with the software needed to run this experiment. Next, you'll set up a Jupyter notebook server on the container, and create an SSH tunnel between your local device and the Jupyter notebook server. Finally, you'll open the notebook server in your local browser and run the sequence of notebooks you see there.
+First, you'll run the `reserve_edge.ipynb` notebook to reserve a Raspberry Pi 4 device on Chameleon, initiate a container and configure it with the software needed to run this experiment. Next, you'll set up a Jupyter notebook server on the container, and create an SSH tunnel between your local device and the Jupyter notebook server. Finally, you'll open the notebook server in your local browser and run the `measuring_inference_times.ipynb` notebook you see there.
 
 To get started, open the Jupyter Interface in Chameleon, initiate a terminal and run the following in the terminal:
 ```
