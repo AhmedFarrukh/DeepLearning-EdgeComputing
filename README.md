@@ -299,6 +299,13 @@ Then open the `reserve.ipynb` notebook inside the `DeepLearning-EdgeComputing` d
 
 
 ### Measure inference time on a Raspberry Pi (through Chameleon)
+First, you'll run the `reserve_edge.ipynb` notebook to reserve a Raspberry Pi 4 device on Chameleon, initiate a container and configure it with the software needed to run this experiment. Next, you'll set up a Jupyter notebook server on the container, and create an SSH tunnel between your local device and the Jupyter notebook server. Finally, you'll open the notebook server in your local browser and run the sequence of notebooks you see there.
+To get started, open the Jupyter Interface in Chameleon, initiate a terminal and run the following in the terminal:
+```
+cd ~/work
+git clone https://github.com/AhmedFarrukh/DeepLearning-EdgeComputing.git
+```
+Then open the `reserve_edge.ipynb` notebook inside the `DeepLearning-EdgeComputing` directory and follow along the instructions there.
 
 ## Analyze results
 Across the different hardware environments we tested on, we generally found quantization to be effective in reducing inference time, and the inference time of quantized models was observed to be lower than the inference time of original models. One notable exception was the Intel Broadwell CPU for which the inference time increased after quantization.   
