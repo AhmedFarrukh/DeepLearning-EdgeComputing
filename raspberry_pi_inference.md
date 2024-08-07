@@ -266,7 +266,7 @@ print(container.execute(my_container.uuid, 'ls -lR /root/tflite_models')['output
 :::{.cell}
 We can now run the benchmark on the `tflite` models using the `run_benchmark` file in the `code` directory we transferred to the container earlier. For each model, the `run_benchmark` file runs the benchmark 10 times, storing the output in a file; the file name is the same as the model and the output files are stores in the `/root/results` directory. Once all models have been benchmarked, a file by the name of `completed` is created in the directory. In the next step, we will then parse through these output files, extract the relevant data and create plots.
 
-This step could take about 90 minutes.
+This step could take about 3 hours.
 :::
 
 :::{.cell .code}
@@ -430,17 +430,17 @@ Let’s create a directory to store our results:
 
 :::{.cell .code}
 ```python
-!mkdir ~/work/DeepLearning-EdgeComputing/RaspberryPi4Results
+!mkdir /work/DeepLearning-EdgeComputing/RaspberryPi4Results
 ```
 :::
 
 :::{.cell}
-We can save our dataframe in the `~/work/DeepLearning-EdgeComputing/RaspberryPi4Results` directory as a csv file for later reference.
+We can save our dataframe in the `/work/DeepLearning-EdgeComputing/RaspberryPi4Results` directory as a csv file for later reference.
 :::
 
 :::{.cell .code}
 ```python
-finalResult.to_csv("~/work/DeepLearning-EdgeComputing/RaspberryPi4Results/finalResult.csv")
+finalResult.to_csv("/work/DeepLearning-EdgeComputing/RaspberryPi4Results/finalResult.csv")
 ```
 :::
 
@@ -485,7 +485,7 @@ for metric in metrics:
     plt.tight_layout()
 
     # Save the plot as an image
-    plt.savefig("~/work/DeepLearning-EdgeComputing/RaspberryPi4Results/" + metric + "_bar_chart.png")
+    plt.savefig("/work/DeepLearning-EdgeComputing/RaspberryPi4Results/" + metric + ".png")
 
     # Show the plot
     plt.show()
