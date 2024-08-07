@@ -298,11 +298,12 @@ print(container.execute(my_container.uuid, 'cat /root/results/MobileNet.txt')['o
 ```
 :::
 :::{.cell}
-Let’s define all the metrics that are reported by the benchmark:
+Let’s define all the models we tested on and the metrics that are reported by the benchmark:
 :::
 
 :::{.cell .code}
 ```python
+modelNames = ["MobileNet", "InceptionV3", "ResNet50", "ResNet101", "ResNet152", "VGG16", "VGG19"]
 metrics = ["Init Time (ms)", "Init Inference (ms)", "First Inference (ms)", "Warmup Inference (ms)", "Avg Inference (ms)", "Memory Init (MB)", "Memory Overall (MB)"]
 ```
 :::
@@ -405,7 +406,7 @@ n = 10 #the number of times the benchmark is called for each model
 for modelName in rows:
   print(modelName)
   modelResults = defaultdict(list)
-  outputOriginal = print(container.execute(my_container.uuid, 'cat /root/results/' + modelName + '.txt')['output'])
+  outputOriginal = container.execute(my_container.uuid, 'cat /root/results/' + modelName + '.txt')['output']
   output = parse_benchmark_output(outputOriginal, modelResults)
 
   for metric in metrics:
@@ -424,14 +425,25 @@ print(finalResult)
 ```
 :::
 :::{.cell}
-Let’s create a directory to store the plots from our data:
+Let’s create a directory to store our results:
 :::
 
 :::{.cell .code}
 ```python
-!mkdir ./plots
+!mkdir ~/work/DeepLearning-EdgeComputing/RaspberryPi4Results
 ```
 :::
+
+:::{.cell}
+We can save our dataframe in the `~/work/DeepLearning-EdgeComputing/RaspberryPi4Results` directory as a csv file for later reference.
+:::
+
+:::{.cell .code}
+```python
+finalResult.to_csv("~/work/DeepLearning-EdgeComputing/RaspberryPi4Results/finalResult.csv")
+```
+:::
+
 :::{.cell}
 Finally, we can generate plots of the results.
 :::
@@ -473,7 +485,7 @@ for metric in metrics:
     plt.tight_layout()
 
     # Save the plot as an image
-    plt.savefig("./plots" + metric + "_bar_chart.png")
+    plt.savefig("~/work/DeepLearning-EdgeComputing/RaspberryPi4Results/" + metric + "_bar_chart.png")
 
     # Show the plot
     plt.show()
@@ -502,7 +514,6 @@ Run the following cell to delete the lease as well.
 DELETE = False #Default value is False to prevent any accidental deletes. Change it to True for deleting the resources
 
 if DELETE:
-
     # delete lease
     chi.lease.delete_lease(lease["id"])
 ```
